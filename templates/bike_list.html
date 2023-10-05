@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bulma_tags %}
+{% load crispy_forms_tags %}
+{% block body %}
+
+      <style>
+        .card-horizontal {
+              display: flex;
+              flex: 1 1 auto;
+        }
+        .card-horizontal:hover{
+          background-color: white;
+          transform-style: preserve-3d;
+          transform: scale(1.02);
+          transition: all ease 0.3s;
+        }
+      </style>
+
+      
+        <section class="section">
+          <div class="container" >
+
+            <div class="columns">
+              <div class="tile is-ancestor">
+                <div class="column is-3">
+
+
+                  <div class="row">
+                    <form action="{% url 'bikes:bike_list' %}" method="GET" value="{{request.GET.b}}">
+                    <div class="field is-grouped" style="padding-top: 50px;">
+                      <p class="control">
+                        <input class="input" type="text" placeholder="Search for Bikes" name="b" value="{{request.GET.b}}">
+                      </p>
+                      <p class="control">
+                        <button class="button is-link" type="submit" name="submit">
+                          Search
+                        </button>
+                      </p>
+                    </div>
+                  </form>
+
+                  </div>
+                 
+                  <div class="row">
+                    <div class="form-group">
+                    <div class="tile is-parent" style="padding-top: 50px;">
+                      <article class="panel is-primary">
+                        <center>
+                        <p class="panel-heading">
+                          Filters
+                        </p>
+                      </center>
+                        <form action="" method="get" 
+                        style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px;">
+                          {{ myfilter.form|bulma }}
+                          <center>
+                          <button class="button is-link" type="submit">Filter</button>
+                         </center>
+                        </form>
+                        </article>
+                        </div>
+                      </div>
+                  </div>
+
+
+
+                  
+                  
+                  <!--<div class="row">
+                  <div class="tile is-parent" style="padding-top: 50px;">
+                  <article class="panel is-primary">
+                    <p class="panel-heading">
+                      Filter by Ownership
+                    </p>
+                    {% for o in ownerships %}
+                    <a class="panel-block is-active" href="{% url 'bikes:post_by_ownership' o %}">
+                      <span class="panel-icon">
+                        <i class="fas fa-book" aria-hidden="true"></i>
+                      </span>
+                      {{o.ownership}}
+                    </a>
+                    {% endfor %}
+          
+                  </article>
+                  
+                </div>
+                  </div>-->
+
+                  <!--<div class="row">
+                    <div class="tile is-parent" style="padding-top: 50px;">
+                    <article class="panel is-primary">
+                      <p class="panel-heading">
+                        Filter by price
+                      </p>
+                      <a class="panel-block is-active" href="{% url 'bikes:high_to_low' %}">
+                        <span class="panel-icon">
+                          <i class="fas fa-book" aria-hidden="true"></i>
+                        </span>
+                        High to Low
+                      </a>
+                      <a class="panel-block" href="{% url 'bikes:low_to_high' %}">
+                        <span class="panel-icon">
+                          <i class="fas fa-book" aria-hidden="true"></i>
+                        </span>
+                        Low to High
+                      </a>
+                    </article>
+                    
+                  </div>
+                    </div>-->
+
+
+               </div>
+            
+
+                
+            <div class="container" style="padding-top: 50px;">
+              <div class="row">
+
+                <!--{% if messages %}
+                <article class="message is-success">
+                  <div class="message-body">
+                    {% for message in messages %}
+                     <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+                  </div>  
+                </article>
+                {% endif %}-->
+
+                {% for bike in bike_list %}
+
+                  <div class="col-12 mt-3">
+                      <div class="card">
+                          <div class="card-horizontal">
+                              <div class="img-square-wrapper" style="max-width: 300px; max-height: 200px;">
+                                  <a href="{% url 'bikes:bike_detail' bike.id %}"><img class="" src="{{ bike.image.url }}" alt="Card image cap" width="300" height="400"></a>
+                              </div>
+                              <div class="card-body">
+                                  <h4 class="card-text title is-4" style="padding-left: 20px;">{{ bike.model_name }}</h4>
+                                  <p class="card-text" style="padding-left: 20px;">
+                                    {{ bike.brand }} {{ bike.year }} {{ bike.kms_driven }} km 
+                                  </p>
+                                  <p class="title is-4 card-text" style="padding-left: 20px; padding-top: 10px;">₹ {{ bike.price }}</p>
+                                  <p style="padding-left: 600px;">
+                                    <a href="{% url 'bikes:bike_detail' bike.id %}"><button class="button is-link is-outlined  is-fullwidth">View Details</button></a>
+                                  </p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                {% empty %}
+
+                <h2 class="title" style="padding-top: 50px; padding-left: 120px;">Sorry bike does not exist !</h2>
+                <a href="{% url 'bikes:bike_form' %}" style="padding-left: 120px;">
+                  <button class="button is-warning is-rounded" style="font-weight: bold;">Click to Add bike</button>
+                </a>
+
+                {% endfor %}
+
+                
+              </div>
+          </div>
+
+          
+
+            </div>
+          </div>
+        </section>
+
+       
+
+        <section class="section">
+          <div class="container">
+            <nav class="pagination is-rounded is-centered" role="navigation" aria-label="pagination" 
+            style="padding-left: 330px;">
+            
+              {% if bike_list.has_other_pages %}
+              <ul class="pagination">
+
+                {% if bike_list.has_previous %}
+                    <a class="pagination-previous is-current" href="?page={{bike_list.previous_page_number}}">Previous</a>
+                {% else %}
+                    <a href="" class="disabled"></a>
+                {% endif %}
+
+              <ul class="pagination-list">
+                {% for pages in bike_list.paginator.page_range %}
+
+                  {% if bike_list.number == pages %}
+                     <li><a class="pagination-link is-current" aria-label="">{{pages}}</a></li>
+                  {% else %}
+                     <li><a class="pagination-link" aria-label="" href="?page={{pages}}">{{pages}}</a></li>
+                  {% endif %}   
+
+                {% endfor %}
+              </ul>
+
+                {% if bike_list.has_next %}
+                  <a class="pagination-next" href="?page={{bike_list.next_page_number}}">Next page</a>
+                {% else %}
+                    <a href="" class="disabled"></a>
+                {% endif %}
+
+              </ul>
+            {% endif %}
+
+          </nav>
+
+
+
+          </div>
+        </section>
+
+
+{% endblock body %}

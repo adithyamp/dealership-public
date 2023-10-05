@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block title %} Car Form {% endblock title %}
+
+{% block body %}
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body style="background-image: url({% static 'img/bg1.jpg' %});">
+<div class="form-group" style="padding-top: 50px;">
+    <section class="">
+        <div class="tile is-parent " style="padding-top: 40px; padding-left: 200px; padding-right: 200px; ">
+            <article class="tile is-child box">
+              <p class="title has-text-centered">Add Car</p>
+              <div class="content">
+                <form action="{% url 'cars:car_form' %}" method="POST" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+                    {% bootstrap_form cform %}
+                    <center>
+                    <button type="submit" value="Submit" class="button is-rounded is-halfwidth is-link is-outlined">Submit</button>
+                    </center>
+
+                </form>
+                </div>
+                </article>
+        </div>
+    </section>
+</div>
+</body>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+      <section class="section">
+        <div class="container">
+
+          <div class="container">
+            <figure class="">
+              <center><img src="{% static 'img\4.jpg' %}" height="600px" width="600px"></center>
+            </figure>
+          </div>
+
+          <div class="column"></div>
+          <center>
+            <!--Ad details-->
+          <div class="tile is-parent is-8">
+            <article class="tile is-child box">
+              <p class="title">Car details</p>
+              <div class="content" style="text-align: center;">
+                <p>Brand Name: <b>Maruti Suzuki</b></p>
+                <p>Kms Driven: <b>20,000 km</b></p>
+                <p>Year: <b>2016</b></p>
+                <p>Model: <b>Ciaz Sport</b></p>
+                <p>Seller type: <b> Dealer</b></p>
+              </div>
+            </article>
+          </div>
+
+           <!--Ad description-->
+          <div class="tile is-parent is-8">
+            <article class="tile is-child box">
+              <p class="title">Description</p>
+              <div class="content">
+                <p style="text-align: left;">Royal Enfield Classic 350 - 2018 for Sale.It is a well maintained two-wheeler that has been less driven.Please contact me for further details.8875344719 call me
+
+                  I do not wish to be contacted by telemarketers or representatives of any other website.</p>
+              </div>
+            </article>
+          </div>
+         
+          <!--Ad posted by-->
+          <div class="tile is-parent is-8">
+            <article class="tile is-child box">
+              <p class="title">Posted By</p>
+              
+              <div class="content">
+                <p style="text-align: left;">                
+                <figure class="image is-128x128">
+                  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                </figure>
+                <b>Deadmau5</b></p>
+              </div>
+            </article>
+          </div>
+        </center>
+        
+         
+        </div>
+      </section>
+
+
+{% endblock body %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% load bulma_tags %}
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block body %}
+
+<body style="background-image: url({% static 'img/bg1.jpg' %});">
+
+  
+<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+  <div class="tile is-parent is-10" style="padding-top: 80px; padding-left: 320px; padding-right: 80px; ">
+    <article class="tile is-child box">
+      <p class="title has-text-centered">Sign Up</p>
+      <div class="content">
+        {% csrf_token %}
+        {{ form|bulma }}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <center>
+        <button type="submit" class="button is-success is-rounded">{% trans "Sign Up" %}</button>
+        <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">login</a>.{% endblocktrans %}</p>
+        </center>
+      </div>
+    </article>
+  </div>
+</form>
+<br>
+
+{% endblock body %}
+
+</body>

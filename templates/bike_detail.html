@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+      <section class="section" >
+        <div class="container">
+
+          <div class="container" style="padding-top: 30px;">
+            <figure class="">
+              <center><img src="{{ bike_detail.image.url }}" height="600px" width="600px"></center>
+            </figure>
+          </div>
+
+          <div class="column"></div>
+          <center>
+            <!--Ad details-->
+          <div class="tile is-parent is-8">
+            <article class="tile is-child box">
+              <p class="title" style="">Bike details</p>
+              <p>
+                {% if bike_detail.user == request.user %}
+                  <a href="{% url 'bikes:edit' bike_detail.pk %}"><button class="button is-link" style="font-weight: bold; padding-left: 20px;">Edit</button></a>
+                  <a href="{% url 'bikes:delete' bike_detail.pk %}"><button class="button is-danger" style="font-weight: bold;">Delete</button></a>
+                {% endif %}
+              </p>
+              <br>
+              <div class="content" style="text-align: center;">
+                <p>Brand: <b>{{ bike_detail.brand }}</b></p>
+                <p>Model: <b>{{ bike_detail.model_name }}</b></p>
+                <p>Kms Driven: <b>{{ bike_detail.kms_driven }} km</b></p>
+                <p>Year: <b>{{ bike_detail.year }}</b></p>
+                <p>Price: <b>{{ bike_detail.price }}</b></p>
+                <p>Ownership: <b>{{ bike_detail.ownership }}</b></p>
+                <p>City: <b>{{ bike_detail.city }}</b></p>
+              </div>
+            </article>
+          </div>
+
+           <!--Ad description-->
+          <div class="tile is-parent is-8">
+            <article class="tile is-child box">
+              <p class="title">Description</p>
+              <div class="content">
+                <p style="text-align: center;">{{ bike_detail.description }}</p>
+              </div>
+            </article>
+          </div>
+         
+          <!--Ad posted by-->
+          <div class="tile is-parent is-8">
+            <article class="tile is-child box">
+              <p class="title">Posted By</p>
+              
+              <div class="content">
+                <p style="text-align: center;">               
+                <a href="{% url 'bikes:user_bike_list' bike_detail.user %}"><b>Click here to view all vehicles posted by {{ bike_detail.user.username }}</b></a></p>
+                <p><b>Contact :  {{ bike_detail.phone_number }}</b></p>
+                <p><b>Email :  {{ bike_detail.user.email }}</b></p>
+                {% if bike_detail.user == request.user %}
+                {% else %}
+                <p><a href="{% url 'accounts:newconversation' bike_detail.user.username %}" class="button is-link">Send Message</a>
+                <a href="{% url 'bikes:sendEmail' %}" class="button is-primary">Send Email</a>
+                {% endif %}
+              </div>
+            </article>
+          </div>
+        
+
+        </center>
+        
+         
+        </div>
+      </section>
+
+
+{% endblock body %}

@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+
+      <style>
+          body {font-family: Arial;}
+
+          /* cards */
+          * {
+              box-sizing: border-box;
+          }
+
+          body {
+            font-family: Arial, Helvetica, sans-serif;
+          }
+
+          /* Float four columns side by side */
+          .column {
+            float: left;
+            width: 25%;
+            padding: 0 10px;
+          }
+
+          /* Remove extra left and right margins, due to padding */
+          .row {margin: 0 -5px;}
+
+          /* Clear floats after the columns */
+          .row:after {
+            content: "";
+            display: table;
+            clear: both;
+          }
+
+          /* Responsive columns */
+          @media screen and (max-width: 600px) {
+            .column {
+              width: 100%;
+              display: block;
+              margin-bottom: 20px;
+              
+            }
+          }
+
+          /* Style the counter cards */
+          .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            text-align: center;
+            background-color: #f1f1f1;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            width: 50px;
+            height: 210px;
+          }
+      </style>
+
+
+        <section class="section" style="padding-top: 100px;">
+          <div class="container">
+            <p class="has-text-centered title">Search Used Cars and Bikes by brands !</p>
+
+            <div class="tabs is-toggle is-centered is-toggle-rounded" style="padding-bottom: 20px;">
+                <ul>
+                <li class="{% if url_name == 'brands_new' %} is-active {% endif %}">
+                    <a href="{% url 'bikes:brands_new'  %}">
+                        <span class="icon is-small"><i class="fas fa-music" aria-hidden="true"></i></span>
+                        <span>Cars</span>
+                    </a>
+                </li>
+                  <li class="{% if url_name == 'brands_new_bikes' %}is-active{% endif %}">
+                    <a href="{% url 'bikes:brands_new_bikes'  %}">
+                      <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
+                      <span>Bikes</span>
+                    </a>
+                  </li>
+
+                </ul>
+            </div>
+
+  
+         
+            <!--Car brands-->
+              <div class="container">
+                   
+                  <div class="row">
+                   
+                  {% for brand in bike_brands %}
+
+                    <div class="column">
+                      <div class="card" style="width: 18rem;">
+                        <a href="{% if url_name == 'brands_new' %}
+                        {% url 'cars:post_by_car_brand' brand %}
+                        {% else %}
+                        {% url 'bikes:post_by_brand' brand %}
+                        {% endif %}"><img class="card-img-top" src="{{ brand.image }}" alt="Card image cap" height="100" width="200"></a>
+                        <div class="card-body">
+                          <p class="card-text">{{ brand.brand_name }}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                  {% endfor %}
+
+                  </div>
+                  
+              </div>
+            
+            <!--Bike brands-->
+              
+
+          </div>
+        </section>
+
+
+
+
+{% endblock body %}

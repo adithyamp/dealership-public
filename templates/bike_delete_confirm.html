@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<!--<form action="" method="POST">
+    {% csrf_token %}
+    <h1>Do you want to delete the bike ad?</h1>
+    <p>
+        <input type="submit" value="Yes">
+        <a href="{% url 'bikes:bike_list' %}">Cancel</a>
+    </p>
+</form>-->
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<div class="form-group" style="padding-top: 50px;">
+    <section class="" style="padding-top: 50px;">
+              <div class="content">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <p class="title has-text-centered">Are you sure you want to delete ?</p>
+                    <center>
+                    <p>
+                        <!--<button type="menu" value="Cancel" class="button is-halfwidth is-link" href="{% url 'bikes:bike_list' %}">Cancel</button>-->
+                        <a href="{% url 'bikes:bike_list' %}" class="button is-halfwidth is-primary">Cancel</a>
+                        <button type="submit" value="Yes" class="button is-halfwidth is-danger">Yes</button>
+                    </p>
+                    </center>
+
+                </form>
+                </div>
+    </section>
+</div>
+
+{% endblock body %}

@@ -1,0 +1,502 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+    <style>
+      * {box-sizing: border-box;}
+body {font-family: Verdana, sans-serif;}
+.mySlides {display: none;}
+
+/* Slideshow container */
+.slideshow-container {
+max-width: 10000px;
+position: relative;
+margin: auto;
+}
+
+/* Caption text */
+.text {
+color: #f2f2f2;
+font-size: 15px;
+padding: 8px 12px;
+position: absolute;
+bottom: 8px;
+width: 100%;
+text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+color: #f2f2f2;
+font-size: 12px;
+padding: 8px 12px;
+position: absolute;
+top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+height: 15px;
+width: 15px;
+margin: 0 2px;
+background-color: turquoise;
+border-radius: 50%;
+display: inline-block;
+transition: background-color 0.6s ease;
+}
+
+.active {
+background-color: rgb(92, 216, 202);
+}
+
+/* Fading animation */
+.fade {
+-webkit-animation-name: fade;
+-webkit-animation-duration: 1.5s;
+animation-name: fade;
+animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+from {opacity: .4} 
+to {opacity: 1}
+}
+
+@keyframes fade {
+from {opacity: .4} 
+to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+.text {font-size: 11px}
+}
+
+.b1 {
+height: 600px;
+margin: 0;
+display: grid;
+grid-template-rows: 500px 100px;
+grid-template-columns: 1fr 30px 30px 30px 30px 30px 1fr;
+align-items: center;
+justify-items: center;
+}
+
+main#carousel {
+grid-row: 1 / 2;
+grid-column: 1 / 8;
+width: 100vw;
+height: 500px;
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+transform-style: preserve-3d;
+perspective: 600px;
+--items: 5;
+--middle: 3;
+--position: 1;
+pointer-events: none;
+}
+
+div.item {
+position: absolute;
+width: 300px;
+height: 170px;
+background-color: coral;
+--r: calc(var(--position) - var(--offset));
+--abs: max(calc(var(--r) * -1), var(--r));
+transition: all 0.25s linear;
+transform: rotateY(calc(-10deg * var(--r)))
+translateX(calc(-300px * var(--r)));
+z-index: calc((var(--position) - var(--abs)));
+}
+
+div.item:nth-of-type(1) {
+--offset: 1;
+background-color: #90f1ef;
+}
+div.item:nth-of-type(2) {
+--offset: 2;
+background-color: #ff70a6;
+}
+div.item:nth-of-type(3) {
+--offset: 3;
+background-color: #ff9770;
+}
+div.item:nth-of-type(4) {
+--offset: 4;
+background-color: #ffd670;
+}
+div.item:nth-of-type(5) {
+--offset: 5;
+background-color: #e9ff70;
+}
+
+input:nth-of-type(1) {
+grid-column: 2 / 3;
+grid-row: 2 / 3;
+}
+input:nth-of-type(1):checked ~ main#carousel {
+--position: 1;
+}
+
+input:nth-of-type(2) {
+grid-column: 3 / 4;
+grid-row: 2 / 3;
+}
+input:nth-of-type(2):checked ~ main#carousel {
+--position: 2;
+}
+
+input:nth-of-type(3) {
+grid-column: 4 /5;
+grid-row: 2 / 3;
+}
+input:nth-of-type(3):checked ~ main#carousel {
+--position: 3;
+}
+
+input:nth-of-type(4) {
+grid-column: 5 / 6;
+grid-row: 2 / 3;
+}
+input:nth-of-type(4):checked ~ main#carousel {
+--position: 4;
+}
+
+input:nth-of-type(5) {
+grid-column: 6 / 7;
+grid-row: 2 / 3;
+}
+input:nth-of-type(5):checked ~ main#carousel {
+--position: 5;
+}
+
+.card-horizontal {
+display: flex;
+flex: 1 1 auto;
+}
+    </style>
+    <!-- Slideshow container -->
+    <div class="slideshow-container" style="padding-top: 50px;">
+
+      <!-- Full-width images with number and caption text -->
+      <div class="">
+      <img src="{% static 'img\carbike.jpg' %}" style="width: 3000px; background-size: cover;">
+      </div>
+
+      <!--<div class="mySlides fade">
+      <img src="{% static 'img\bg.jpg' %}" style="width: 3000px; background-size: cover;">
+      </div>
+
+      <div class="mySlides fade">
+      <img src="{% static 'img\bg1.jpg' %}" style="width: 3000px; background-size: cover;">
+      </div>
+    </div>
+
+     The dots/circles 
+     <div style="text-align:center">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+     </div>-->
+
+
+  </head>
+
+  <body>
+
+    <!--<section class="hero is-primary is-small">
+      <div class="hero-body">
+
+        <p class="title" style="padding-left: 80x;">Search for cars</p>
+          <div class="columns">
+            
+            <div class="column"></div>
+            <div class="column">
+            <form action="" method="GET" value="" >
+            <div class="field is-grouped" >
+              <p class="control">
+                <input class="input" type="text" placeholder="Search for Cars" name="q" value="{{request.GET.q}}">
+              </p>
+              <p class="control">
+                <button class="button is-link" type="submit" name="submit">
+                  Search
+                </button>
+              </p>
+            </p>
+            </div>
+           </form>
+          </div>
+ 
+          <div class="column">
+            <form action="" method="GET" value="">
+            <div class="field is-grouped" style="padding-left: 50px;">
+              <p class="control">
+                <input class="input" type="text" placeholder="Search for Bikes" name="q" value="{{request.GET.q}}">
+              </p>
+              <p class="control">
+                <button class="button is-link" type="submit" name="submit">
+                  Search
+                </button>
+              </p>
+            </div>
+           </form>
+          </div>
+
+          </div>   
+      </div>
+    </section>-->
+
+    <section class="section">
+      <div class="container">
+        <div class="tile">
+          <div class="tile is-12 is-parent">
+            <article class="tile is-child box">
+              <p class="title has-text-centered">Recommended Cars for you!</p>
+              <div class="columns mt-5 is-8 is-variable" >
+    
+                {% for car in home_car %}
+                <a href="{% url 'cars:car_detail' car.id %}">
+                <div class="column is-4-tablet is-3-desktop" id="slider">
+                    <div class="box1" style="max-width: 250px;">
+                      <a href="{% url 'cars:car_detail' car.id %}">
+                        <img src="{{car.image.url}}" style="max-height: 170px;"></a>
+                    <b><p>{{ car.model_name }} {{ car.fuel_type }}</p></b>
+                    <p class="title is-size-5">{{ car.price }}</p>
+                    <a href="{% url 'cars:car_detail' car.id %}">
+                      <button class="button is-link" >View Details</button></a>  
+                    </a>
+                    <br>                                     
+                    </div>
+                </div>
+              </a>
+                 
+                {% endfor %}
+    
+                
+                
+              </div>
+            </article>
+          </div>
+      </div>
+    </section>
+
+   <!--Bikes-->
+   <!--<section class="section">
+    <div class="container">
+      <div class="tile">
+        <div class="tile is-12 is-parent">
+          <article class="tile is-child box">
+            <p class="title has-text-centered">Recommended Bikes for you!</p>
+            <div class="columns mt-5 is-8 is-variable">
+
+              {% for bike in home_bike %}
+              <div class="column is-4-tablet is-3-desktop">
+     
+               <div class="card">
+                 <div class="card-image has-text-centered px-7">
+                   <a href="{% url 'bikes:bike_detail' bike.id %}"><img src="{{ bike.image.url }}" alt="" height="300" width="300" ></a>
+                 </div>
+                 <div class="card-content">
+                   <p>{{ bike.model_name }} {{ bike.fuel_type }}</p>
+                   <p class="title is-size-5">₹ {{ bike.price }}</p>
+                     <a href="{% url 'bikes:bike_detail' bike.id %}"><button class="button is-focused is-fullwidth is-link">View Details</button></a>
+                 </div>
+                 
+               </div>
+              </div>
+              {% endfor %}
+              
+              
+            </div>
+          </article>
+        </div>
+    </div>
+  </section>-->
+   
+  <section class="section">
+    <div class="container">
+      <div class="tile">
+        <div class="tile is-12 is-parent">
+          <article class="tile is-child box">
+            <p class="title has-text-centered">Recommended Bikes for you!</p>
+            <div class="columns mt-5 is-8 is-variable" >
+  
+              {% for bike in home_bike %}
+              <a href="{% url 'bikes:bike_detail' bike.id %}">
+              <div class="column is-4-tablet is-3-desktop" id="slider">
+                  <div class="box1" style="max-width: 250px;">
+                    <a href="{% url 'bikes:bike_detail' bike.id %}"><img src="{{bike.image.url}}" style="max-height: 170px;"></a>
+                  <b><p>{{ bike.model_name }} {{ bike.fuel_type }}</p></b>
+                  <p class="title is-size-5">{{ bike.price }}</p> 
+                  <a href="{% url 'bikes:bike_detail' bike.id %}"> 
+                    <button class="button is-link">View Details</button>
+                  </a>
+                  <br>                                     
+                  </div>
+              </div>
+            </a>
+
+              {% endfor %}
+                          
+            </div>
+          </article>
+        </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="tile">
+        <div class="tile is-12 is-parent">
+          <article class="tile is-child box">
+            <p class="title has-text-centered">Popular Brands</p>
+            <div class="columns mt-5 is-8 is-variable" >
+  
+              {% for brand in home_brands %}
+              <a href="{% url 'cars:post_by_car_brand' brand %}">
+              <div class="column is-4-tablet is-3-desktop" id="slider">
+                  <div class="box1" style="max-width: 250px; max-height: 200px;">
+                    <img class="is-rounded" src="{{brand.image}}">
+                  <p class="title is-size-5">{{ brand.brand_name }}</p>  
+                  <br>                                     
+                  </div>
+              </div>
+            </a>
+               
+              {% endfor %}
+            </div>
+            <center><a href="{% url 'bikes:brands_new' %}"><button class="button is-medium is-halfwidth is-primary is-rounded">Click here to view more Brands</button></a></center>
+          </article>
+        </div>
+    </div>
+  </section>
+
+  <!--<section class="section">
+    <h1 class="has-text-centered is-size-3 title">Popular Brands</h1>
+    <div class="container b1" style="padding-left: 60px;">
+      <input type="radio" name="position"  />
+      <input type="radio" name="position" />
+      <input type="radio" name="position" checked/>
+      <input type="radio" name="position" />
+      <input type="radio" name="position" />
+
+      <main id="carousel">
+
+        {% for brand in home_brands %}
+        <div class="item">
+          <figure class="image is-192x192">
+            <a href="{% url 'cars:post_by_car_brand' brand %}"><img src="{{ brand.image }}"></a>
+          </figure>
+        </div>
+        {% endfor %}
+        
+        
+      <main>
+    </div>
+    <center style="padding-right: 60px;"><a href="{% url 'bikes:brands_new' %}"><button class="button is-medium is-halfwidth is-primary is-rounded">Click here to view more Brands</button></a></center>
+  </section>-->
+
+  <!--<section class="section">
+    <div class="container">
+      <div class="tile is-ancestor">
+        <div class="tile is-parent is-12">
+          <article class="tile is-child box">
+            <p class="title has-text-centered">Budget</p>
+            <div class="content">
+              <button class="button is-link  is-outlined is-rounded" style="margin-right: 20px; font-weight: bold;">1 - 5 lakh</button>
+              <button class="button is-link  is-outlined is-rounded" style="margin-right: 20px; font-weight: bold;">5 - 10 lakh</button>
+              <button class="button is-link  is-outlined is-rounded" style="margin-right: 20px; font-weight: bold;">10 - 15 lakh</button>
+              <button class="button is-link  is-outlined is-rounded" style="margin-right: 20px; font-weight: bold;">15 - 20 lakh</button>
+              <button class="button is-link  is-outlined is-rounded" style="margin-right: 20px; font-weight: bold;">20 - 35 lakh</button>
+              <button class="button is-link  is-outlined is-rounded" style="margin-right: 20px; font-weight: bold;">35 - 50 lakh</button>
+              <button class="button is-link  is-outlined is-rounded" style="margin-right: 20px; font-weight: bold;">50 lakh - 1 crore</button>
+              <button class="button is-link  is-outlined is-rounded" style="margin-right: 20px; font-weight: bold;">above 1 crore</button>
+
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>-->
+
+<!--<section class="section">
+  <div class="container1">
+
+    <ul id="autoWidth" class="cs-hidden">
+      {% for brand in home_brands %}
+          <li class="item-a">
+              <div class="box1">
+              <a href="{% url 'cars:post_by_car_brand' brand %}"><img src="{{ brand.image }}" class="model"></a>
+              <p class="marvel">{{brand.brand_name}}</p>                    
+              </div>
+          </li>
+      {% endfor %}
+
+          
+      </ul>
+    
+
+  </div>
+</section>-->
+
+
+            
+
+  <script>
+    var slideIndex = 0;
+    showSlides();
+    
+    function showSlides() {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("dot");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {slideIndex = 1}    
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";  
+      dots[slideIndex-1].className += " active";
+      setTimeout(showSlides,); // Change image every 2 seconds
+    }
+
+    function prev(){
+		document.getElementById('slider-container1').scrollLeft -= 270;
+    }
+
+    function next()
+    {
+        document.getElementById('slider-container1').scrollLeft += 270;
+    }
+
+
+    $(".slide1 img").on("click" , function(){
+      $(this).toggleClass('zoomed');
+      $(".overlay").toggleClass('active');
+    })
+
+    const buttonRight = document.getElementById('slideRight');
+			const buttonLeft = document.getElementById('slideLeft');
+
+
+			buttonRight.addEventListener('click', function(){
+				document.getElementById('slider').scrollLeft += 180;
+		    })
+
+
+
+		    buttonLeft.addEventListener('click', function(){
+		      document.getElementById('slider').scrollLeft -= 180;
+		    })
+
+
+
+  </script>
+
+ {% endblock body %}

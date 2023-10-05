@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+      <section class="section" >
+        <div class="container">
+
+          <div class="container" style="padding-top: 30px;">
+            <figure class="">
+              <center><img src="{{ car_detail.image.url }}" height="600px" width="600px"></center>
+            </figure>
+          </div>
+
+          <div class="column"></div>
+          <center>
+            <!--Ad details-->
+          <div class="tile is-parent is-8">
+            <article class="tile is-child box">
+              <p class="title" style="">Car Details</p>
+              <p>
+                {% if car_detail.user == request.user %}
+                  <a href="{% url 'cars:edit' car_detail.pk %}"><button class="button is-link" style="font-weight: bold; padding-left: 20px;">Edit</button></a>
+                  <a href="{% url 'cars:delete' car_detail.pk %}"><button class="button is-danger" style="font-weight: bold;">Delete</button></a>
+                {% endif %}
+              </p>
+              <br>
+              <div class="content" style="text-align: center;">
+                <p>Brand: <b>{{ car_detail.brand }}</b></p>
+                <p>Model: <b>{{ car_detail.model_name }}</b></p>
+                <p>Kms Driven: <b>{{ car_detail.kms_driven }} km</b></p>
+                <p>Fuel Type: <b>{{ car_detail.fuel_type }} </b></p>
+                <p>Transmission: <b>{{ car_detail.transmission }} </b></p>
+                <p>Year: <b>{{ car_detail.year }}</b></p>
+                <p>Price: <b>{{ car_detail.price }}</b></p>
+                <p>Ownership: <b>{{ car_detail.ownership }}</b></p>
+                <p>City: <b>{{ car_detail.city }}</b></p>
+              </div>
+            </article>
+          </div>
+
+           <!--Ad description-->
+          <div class="tile is-parent is-8">
+            <article class="tile is-child box">
+              <p class="title">Description</p>
+              <div class="content">
+                <p style="text-align: center;">{{ car_detail.description }}</p>
+              </div>
+            </article>
+          </div>
+         
+          <!--Ad posted by-->
+          <div class="tile is-parent is-8">
+            <article class="tile is-child box">
+              <p class="title">Posted By</p>
+              
+              <div class="content">
+                <p style="text-align: center;">                
+                <!--<figure class="image is-128x128">
+                  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                </figure>-->
+                <a href="{% url 'bikes:user_bike_list' car_detail.user %}">
+                  <b>Click here to view all vehicles posted by {{ car_detail.user.username }}</b></a></p>
+                <p><b>Contact :  {{ car_detail.phone_number }}</b></p>
+                <p><b>Email :  {{ car_detail.user.email }}</b></p>
+                {% if car_detail.user == request.user %}
+                {% else %}
+                <p><a href="{% url 'accounts:newconversation' car_detail.user.username %}" class="button is-link">Send Message</a>
+                <a href="{% url 'bikes:sendEmail' %}" class="button is-primary">Send Email</a>
+                {% endif %}  
+              </div>
+            </article>
+          </div>
+        
+
+        </center>
+        
+         
+        </div>
+      </section>
+
+
+{% endblock body %}

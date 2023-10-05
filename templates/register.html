@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<body style="background-image: url({% static 'img/bg.jpg' %});">
+    
+    <form action="register" method="POST">
+
+       {% csrf_token %}
+
+      <div class="tile is-parent " style="padding-top: 80px; padding-left: 200px; padding-right: 200px; ">
+          <article class="tile is-child box">
+            <p class="title has-text-centered">Sign Up</p>
+            <div class="content">
+
+              <!--{% if messages %}
+              <article class="message is-danger">
+                <div class="message-body">
+                  {% for message in messages %}
+                  <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                  {% endfor %}
+                </div>  
+              </article>
+              {% endif %}-->
+
+              <div class="field">
+                  <p class="control has-icons-left has-icons-right">
+                      <label style="font-weight: bold;" class="">First Name</label>
+                    <input class="input" type="text" placeholder="First Name" name="firstname">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i class="fas fa-check"></i>
+                    </span>
+                  </p>
+                </div>
+
+                <div class="field">
+                  <p class="control has-icons-left has-icons-right">
+                      <label style="font-weight: bold;" class="">Last Name</label>
+                    <input class="input" type="text" placeholder="Last Name" name="lastname">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i class="fas fa-check"></i>
+                    </span>
+                  </p>
+                </div>
+
+                <div class="field">
+                  <p class="control has-icons-left has-icons-right">
+                      <label style="font-weight: bold;" class="">Email</label>
+                    <input class="input" type="email" placeholder="Email" name="email">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i class="fas fa-check"></i>
+                    </span>
+                  </p>
+                </div>
+
+              <div class="field">
+                  <p class="control has-icons-left has-icons-right">
+                      <label style="font-weight: bold;" class="">Username</label>
+                    <input class="input" type="text" placeholder="Username" name="username">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i class="fas fa-check"></i>
+                    </span>
+                  </p>
+                </div>
+
+                <div class="field">
+                  <p class="control has-icons-left">
+                      <label style="font-weight: bold;">Password</label>
+                    <input class="input" type="password" placeholder="Password" name="password">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                  </p>
+                </div>
+
+                <div class="field">
+                  <p class="control has-icons-left">
+                      <label style="font-weight: bold;">Confirm Password</label>
+                    <input class="input" type="password" placeholder="Confirm Password" name="cpassword">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                  </p>
+                </div>
+
+                <div class="field">
+                  <p class="control">
+                      <center>
+                    <button class="button is-success" type="submit" name="submit">
+                      Sign Up
+                    </button>
+                  </center>
+                  </p>
+                </div>      </div>
+          </article>
+      </div>
+
+    </form>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+</body>
+
+{% endblock body %}

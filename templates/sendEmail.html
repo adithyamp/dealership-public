@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load bulma_tags %}
+{% load static %}
+{% block title %} Bike Form {% endblock title %}
+
+{% block body %}
+
+<body style="background-image: url({% static 'img/bg1.jpg' %});">
+<div class="form-group" style="padding-top: 50px;">
+    <section class="">
+        <div class="tile is-parent " style="padding-top: 40px; padding-left: 200px; padding-right: 200px; ">
+            <article class="tile is-child box">
+              <p class="title has-text-centered">Send Email</p>
+              <div class="content">
+                <form method="POST">
+
+                    <div class="field">
+                        <label class="label">Subject</label>
+                        <div class="control">
+                          <input class="input" type="text" placeholder="Enter Subject" name="subject">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Message</label>
+                        <div class="control">
+                          <textarea class="textarea" placeholder="Enter message" name="message"></textarea>
+                        </div>
+                      </div>
+
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control has-icons-left has-icons-right">
+                          <input class="input " type="email" placeholder="Enter Email" value="" name="email">
+                        </div>
+                      </div>
+                      
+             
+
+
+                    {% csrf_token %}
+  
+                    <center>
+                    <button type="submit" value="Submit" class="button is-rounded is-halfwidth is-link is-outlined">Submit</button>
+                    </center>
+
+                </form>
+                </div>
+                </article>
+        </div>
+    </section>
+</div>
+</body>
+
+{% endblock %}

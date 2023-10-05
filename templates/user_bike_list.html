@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+          <style>
+            .card-horizontal {
+                  display: flex;
+                  flex: 1 1 auto;
+            }
+            .card-horizontal:hover{
+              background-color: white;
+              transform-style: preserve-3d;
+              transform: scale(1.02);
+              transition: all ease 0.3s;
+            }
+          </style>
+    
+          <section class="hero is-primary" style="padding-top: 50px;">
+            <div class="hero-body">
+              <article class="media">
+                <div class="media-content">
+                  <h4 class="title is-4 has-text-centered">Vehicles posted by {{ user1.first_name }} {{ user1.last_name }}</h4>
+                  <h5 class="title is-4 has-text-centered">Email : {{ user1.email }}</h5>
+                  {% if user1.is_superuser %}
+                  <a href="/admin/"><h6 class="title is-4 has-text-centered">Admin Panel</h6></a>
+                  {% endif %}
+                </div>
+              </article>
+            </div>
+          </section>
+
+        <section class="section" >
+          <div class="container">
+
+            <div class="tabs is-toggle is-centered is-toggle-rounded" style="padding-bottom: 20px;">
+              <ul>
+                <li class="{% if url_name == 'user_bike_list' %}is-active{% endif %}">
+                  <a href="{% url 'bikes:user_bike_list' user1 %}">
+                    <span class="icon is-small"><i class="fas fa-image" aria-hidden="true"></i></span>
+                    <span>Bikes</span>
+                  </a>
+                </li>
+
+                <li class="{% if url_name == 'user_car_list' %}is-active{% endif %}">
+                  <a href="{% url 'bikes:user_car_list' user1 %}">
+                    <span class="icon is-small"><i class="fas fa-music" aria-hidden="true"></i></span>
+                    <span>Cars</span>
+                  </a>
+                </li>
+              
+              </ul>
+            </div>
+
+
+            <div class="columns">
+              <div class="tile is-ancestor">
+                
+
+                
+            <div class="container" style="padding-left: 50px; padding-right: 50px;">
+              <div class="row">
+
+                {% for bike in user_bike_list %}
+
+                <div class="col-12 mt-3">
+                  <div class="card">
+                      <div class="card-horizontal">
+                          <div class="img-square-wrapper">
+                              <a href="{% if url_name == 'user_bike_list' %}
+                              {% url 'bikes:bike_detail' bike.id %}
+                              {% else %}
+                              {% url 'cars:car_detail' bike.id%}
+                              {% endif %}"><img class="" src="{{ bike.image.url }}" alt="Card image cap" width="300" height="400"></a>
+                          </div>
+                          <div class="card-body">
+                              <h4 class="card-text title is-4" style="padding-left: 20px;">{{ bike.model_name }}</h4>
+                              <p class="card-text" style="padding-left: 20px;">
+                                {{ bike.year }} {{ bike.kms_driven }} km  
+                              </p>
+                              <p class="title is-4 card-text" style="padding-left: 20px; padding-top: 10px;">₹ {{ bike.price }}</p>
+                              <p style="padding-left: 600px;">
+                                <a href="{% if url_name == 'user_bike_list' %}
+                                {% url 'bikes:bike_detail' bike.id %}
+                                {% else %}
+                                {% url 'cars:car_detail' bike.id%}
+                                {% endif %}"><button class="button is-link is-outlined  is-fullwidth">View Details</button></a>
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              {% empty %}
+
+              {% if url_name == 'user_bike_list' %}
+               
+              <h2 class="title" style="padding-top: 50px; padding-left: 120px;">Sorry no bikes posted !</h2>
+                <a href="{% url 'bikes:bike_form' %}" style="padding-left: 120px;">
+                  <button class="button is-warning is-rounded" style="font-weight: bold;">Click to Add bike</button>
+                </a>
+
+              {% else %}
+
+              <h2 class="title" style="padding-top: 50px; padding-left: 120px;">Sorry no cars posted !</h2>
+              <a href="{% url 'cars:car_form' %}" style="padding-left: 120px;">
+                <button class="button is-warning is-rounded" style="font-weight: bold;">Click to Add car</button>
+              </a>
+
+              {% endif %}
+
+              {% endfor %}
+
+
+              </div>
+          </div>
+
+          
+
+            </div>
+          </div>
+        </section>
+        <br>
+
+        
+
+{% endblock body %}
